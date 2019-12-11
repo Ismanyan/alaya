@@ -1,0 +1,18 @@
+p,
+.navbar-brand {
+	color: #515c6f !important;
+}
+
+
+h5,
+.navbar-brand {
+	font-weight: 500;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h5 {
+	color: #ff6fa4 !important;
+}
+p {
+	font-size: 12px;
+}
