@@ -96,11 +96,11 @@
 
             this.map = L.map(this.$map[0]).setView([lat, lng], 15);
 
-            var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
             var mapTiles = new L.TileLayer(osmUrl, {
                 attribution: 'Map data &copy; ' +
-                    '<a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+                    '<a href="https://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
                 maxZoom: 18
             });
 
