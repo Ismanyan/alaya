@@ -50,11 +50,11 @@
                                 <div class="col-5">
                                     <img class=" rounded w-100" src="` + value.photo + `">
                                     <div class="btn-group my-2" role="group" aria-label="Basic example">
-                                        <a class="detail" href="` + 'http://localhost/GITHUB_/alaya/alaya-mobile/treatment/detail/' + value.id + `">
+                                        <a class="detail" href="` + base +'treatment/detail/' + value.id + `">
                                             <button type="button" class="btn btn-secondary btn-sm shadow-sm">Detail</button>
                                         </a>
                                         <div class="divinder mx-1"></div>
-                                        <a class="count" href="` + 'http://localhost/GITHUB_/alaya/alaya-mobile/treatment/count/' + value.id + `">
+                                        <a class="count" href="` + base +'treatment/count/' + value.id + `">
                                             <button type="button" class="btn btn-secondary btn-sm shadow-sm">Count</button>
                                         </a>
                                     </div>
