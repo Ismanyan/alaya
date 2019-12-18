@@ -24,3 +24,6 @@ h4,.navbar-brand {
     background-attachment: fixed;
     background-position: center;
 }
+.spinner-border {
+    color: #ff6fa4;
+}

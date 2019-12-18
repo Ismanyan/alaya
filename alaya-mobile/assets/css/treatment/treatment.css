@@ -69,3 +69,15 @@ h4,
 	font-weight: 700;
 	font-size: 40px !important;
 }
+
+.spinner-border {
+	color: #ff6fa4;
+}
+.spinner-text {
+	font-weight: 500;
+	font-family: Verdana,
+	Geneva,
+	Tahoma,
+	sans-serif;
+	color: #515c6f !important;
+}

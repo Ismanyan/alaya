@@ -11,6 +11,13 @@ class Home extends CI_Controller {
 		$this->vpn_model->detectVpn();
 
 		$this->API = getenv('REST_URL');
+		
+		$location = [
+			'lat' => $_GET['latitude'],
+			'long' => $_GET['longitude']
+		];
+
+		$this->session->set_userdata($location);
 
 		if (!$this->session->userdata('logged_in')) {
 			redirect(base_url('auth/login'));

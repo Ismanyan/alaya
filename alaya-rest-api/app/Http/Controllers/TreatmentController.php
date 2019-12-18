@@ -13,7 +13,6 @@ class TreatmentController extends Controller
     public function getAll($id)
     {
         $treatments = Treatment::where('branch_id',$id)->get();
-
         return response()->json($treatments, 200);
     }
     

@@ -36,7 +36,7 @@ class Auth extends CI_Controller
     }
 
     // Login System
-    public function index()
+    public function checklogin()
     {
         
         // TODO::VALIDATE THIS
@@ -51,15 +51,21 @@ class Auth extends CI_Controller
             // build token 
             $jwt = json_decode($response->body,true);
             $this->session->set_userdata('TOKEN', $jwt['token']);
-            $id = $this->session->set_userdata('user_id',$jwt['user_id']);
-            redirect(base_url('auth/pin/').$id);
-
+            $this->session->set_userdata('user_id',$jwt['user_id']);
+            echo json_encode($jwt['user_id'],true);
+            // redirect(base_url('auth/pin/').$id);
         } else {
-            notif('error','Invalid User', 'User data does not match');
+            echo json_encode(false,true);
         }
     }
 
     public function pin($id = null) {
+       
+        if (!$this->session->userdata('TOKEN')) {
+            redirect(base_url('auth/login'));
+            exit;
+        }
+
         if($id == null) {
             $data['user_id'] = $this->session->userdata('user_id');
         } else {
@@ -101,12 +107,16 @@ class Auth extends CI_Controller
                     'logged_in' => true
                 ];
                 $this->session->set_userdata($logged_in);
-                redirect(base_url());
+                echo json_encode(true,true);
             } else {
-                notif('error', 'Invalid Pin', 'Pin mismatch');
+                // notif('error', 'Invalid Pin', 'Pin mismatch');
+                echo json_encode(false,true);
             } 
         } else {
-            notif('error', 'Invalid Access', 'Access Denied');
+            echo json_encode(false,true);
+            // notif('error', 'Invalid Access', 'Access Denied');
         }
     }
+
+
 }

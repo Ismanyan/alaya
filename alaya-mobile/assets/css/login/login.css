@@ -3,6 +3,9 @@
     background-color: #ff6fa4 !important;   
     font-weight: 600;
 }
+.text-login {
+    color: #56125c !important;
+}
 .btn-primary.focus, .btn-primary:focus {
     box-shadow: 0 0 0 .2rem rgb(250, 124, 197) !important;
 }

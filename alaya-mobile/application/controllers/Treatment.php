@@ -24,17 +24,27 @@ class Treatment extends CI_Controller
 
     public function index()
     {
+       
+            // $data['treatments'] = json_decode($response->body, true);
+
+            $this->load->view('layouts/header');
+            $this->load->view('treatment/treatment');
+            $this->load->view('layouts/footer');
+        // } else {
+            // redirect(base_url());
+            // exit;
+        // }
+    }
+
+    public function getTreatment()
+    {
         $response = Requests::GET($this->API . 'treatment/'. $this->session->userdata('branch_id') . '?token=' . $this->session->userdata('TOKEN'));
        
         if ($response->status_code == 200) {
-            $data['treatments'] = json_decode($response->body, true);
-
-            $this->load->view('layouts/header');
-            $this->load->view('treatment/treatment',$data);
-            $this->load->view('layouts/footer');
+            $data = json_decode($response->body, TRUE);
+            echo json_encode(json_decode($response->body, TRUE));
         } else {
-            redirect(base_url());
-            exit;
+            echo json_encode(false,true);
         }
     }
 
@@ -44,36 +54,43 @@ class Treatment extends CI_Controller
             redirect(base_url());
             exit;
         }
-        $response = Requests::GET($this->API . 'treatment/detail/'.$id . '?token=' . $this->session->userdata('TOKEN'));
-        if ($response->status_code == 200) {
-            $data['treatment'] = json_decode($response->body, true);
-
+        $data['id'] = $id;
+        // $response = Requests::GET($this->API . 'treatment/detail/'.$id . '?token=' . $this->session->userdata('TOKEN'));
+       
+        // if ($response->status_code == 200) {
+        //     $data['treatment'] = json_decode($response->body, true);
             $this->load->view('layouts/header');
             $this->load->view('treatment/detail_treatment',$data);
             $this->load->view('layouts/footer');
-        } else {
-            redirect(base_url());
-            exit;
-        }
+        // } else {
+        //     redirect(base_url());
+        //     exit;
+        // }
     }
 
+    public function get_detail(INT $id = null)
+    {
+        $response = Requests::GET($this->API . 'treatment/detail/'.$id . '?token=' . $this->session->userdata('TOKEN'));
+        echo json_encode(json_decode($response->body,true));
+    }
+    
     public function count(INT $id = null)
     {
         if ($id == null) {
             redirect(base_url());
             exit;
         }
-        $response = Requests::GET($this->API . 'treatment/detail/' . $id . '?token=' . $this->session->userdata('TOKEN'));
-        if ($response->status_code == 200) {
-            $data['treatment'] = json_decode($response->body, true);
+        // $data['treatment'] = json_decode($response->body, true);
+        $data['id'] = $id;
+        $this->load->view('layouts/header');
+        $this->load->view('treatment/count_treatment', $data);
+        $this->load->view('layouts/footer');
+    }
 
-            $this->load->view('layouts/header');
-            $this->load->view('treatment/count_treatment', $data);
-            $this->load->view('layouts/footer');
-        } else {
-            redirect(base_url());
-            exit;
-        }
+    public function get_count(INT $id = null)
+    {
+        $response = Requests::GET($this->API . 'treatment/detail/' . $id . '?token=' . $this->session->userdata('TOKEN'));
+        echo json_encode(json_decode($response->body, true));
     }
 
     public function start(INT $user_id = null , INT $id = null)
@@ -86,17 +103,13 @@ class Treatment extends CI_Controller
             redirect(base_url());
             exit;
         } else {
-            $response = Requests::GET($this->API . 'treatment/detail/' . $id . '?token=' . $this->session->userdata('TOKEN'));
-            if ($response->status_code == 200) {
-                $data['treatment'] = json_decode($response->body, true);
 
-                $this->load->view('layouts/header');
-                $this->load->view('treatment/start_treatment', $data);
-                $this->load->view('layouts/footer');
-            } else {
-                redirect(base_url());
-                exit;
-            }
+            $data['id'] = $id;
+
+            $this->load->view('layouts/header');
+            $this->load->view('treatment/start_treatment',$data);
+            $this->load->view('layouts/footer');
+        
         }
     }
 
@@ -110,6 +123,7 @@ class Treatment extends CI_Controller
             redirect(base_url());
             exit;
         } else {
+
             $start = $this->input->post('start',true);
             $end = date('h:i A');
             $date = $this->input->post('date',true);
@@ -118,9 +132,9 @@ class Treatment extends CI_Controller
             $response = Requests::POST($this->API . 'treatment/add/history?users_id='.$user_id.'&treatment_id='. $id.'&date='.$date.'&time_entry='. $start.'&time_out='.$end.'&duration='. $duration.'&token='. $this->session->userdata('TOKEN'));
            
             if ($response->status_code === 200) {
-                notif('success', 'Treatment success', 'Thank you for being treatment today');
+                echo json_encode($duration);
             } else {
-                notif('error', 'Treatment Invalid', 'Please contact your admin');
+                echo json_encode($response);
             }
         }
     }

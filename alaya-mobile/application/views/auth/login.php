@@ -5,14 +5,28 @@
     <div id="splashscreen" class="splashscreen">
         <br><br><br><br><br><br><br><br><br><br>
         <img class="w-75 mx-auto d-block " src="<?= asset_url() . 'img/alaya.png' ?>" style="background-image:url('<?= asset_url() . 'img/default-img.png' ?>'); ">
+        <div class="text-center check">
+            <div class="spinner-grow text-login" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-login" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-login" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 
-    <div class="container mt-5 login">
-        <div class="row ">
+    <div class="container mt-5 login animated fadeInUp">
+        <div class="row">
             <div class="col-lg-6 mx-auto">
-                <form action="<?= base_url('auth/index') ?>" method="post" autocomplete="off">
-                    <h3 class="text-center my-5 animated fadeIn">Login</h3>
-                    <div class="card shadow-sm border-0 animated fadeInUp">
+                <form autocomplete="off">
+                    <h3 class="text-center my-5 ">Login</h3>
+                    <div class="alert alert-danger animated delay-1s shake" role="alert">
+                        User does not exist
+                    </div>
+                    <div class="card shadow-sm border-0 ">
                         <div class="card-body">
                             <!-- userid -->
                             <div class="input-group mb-3">
@@ -21,7 +35,7 @@
                                         <img src="<?= asset_url() . 'img/login/profile.png' ?>" alt="profile">
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="ID user" aria-label="userid" aria-describedby="userid" name="username" required value="<?= set_value('username') ?>">
+                                <input id="username" type="text" class="form-control" placeholder="ID user" aria-label="userid" aria-describedby="userid" name="username" required value="<?= set_value('username') ?>">
                             </div>
                             <!-- Email -->
                             <div class="input-group mb-3">
@@ -30,7 +44,7 @@
                                         <img src="<?= asset_url() . 'img/login/email.png' ?>" alt="profile">
                                     </span>
                                 </div>
-                                <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="email" name="email" required value="<?= set_value('email') ?>">
+                                <input id="emails" type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="email" name="email" required value="<?= set_value('email') ?>">
                             </div>
                             <!-- Password -->
                             <div class="input-group">
@@ -39,25 +53,16 @@
                                         <img src="<?= asset_url() . 'img/login/password.png' ?>" alt="password">
                                     </span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="password" name="password" required>
+                                <input id="passwords" type="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="password" name="password" required>
                             </div>
                         </div>
                     </div>
-                    <button type="sumbit" class="btn btn-primary mt-5 w-100 bg-pink text-cente animated fadeInUp slowr">LOG IN <img class="float-right" src="<?= asset_url() . 'img/login/btnlogin2.png' ?>" alt="next"></button>
+                    <button type="button" class="btn-login btn btn-primary mt-5 w-100 bg-pink text-cente animated fadeInUp slowr">LOG IN <img class="float-right" src="<?= asset_url() . 'img/login/btnlogin2.png' ?>" alt="next"></button>
                 </form>
             </div>
         </div>
     </div>
 
-    <script>
-        function splash(param) {
-            var time = param;
-            $('.login').hide();
-            $('body').css('background-color', '#e9eef1');
-            setTimeout(function() {
-                $('#splashscreen').hide();
-                $('.login').show();
-                $('body').css('background-color', '#fff');
-            }, time);
-        }
-    </script>
+    <input type="hidden" class="rest_url" value="<?= getenv('REST_URL') ?>">
+    <input type="hidden" class="base_url" value="<?= getenv('BASE_URL') ?>">
+    <script src="<?= asset_url() . 'js/auth/login.js' ?>"></script>

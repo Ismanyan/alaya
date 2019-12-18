@@ -115,9 +115,7 @@
                     fillOpacity: 0.3,
                 }).addTo(this.map);
 
-                // console.log(this.circle.getLatLng());
-                // console.log(Object.values(this.map)[30].lat);   
-                var d = this.map.distance([Object.values(this.map)[30].lat, Object.values(this.map)[30].lng], this.circle.getLatLng());
+                var d = this.map.distance(['<?= $this->session->userdata('lat') ?>', '<?= $this->session->userdata('long') ?>'], this.circle.getLatLng());
                 var isInside = d < this.circle.getRadius();
                 if (isInside == false) {
                     $('.absent').hide();
@@ -162,56 +160,12 @@
                     .addTo(this.map);
             }
 
-            this.map.setView([this.lat, this.lng], 16);
+            console.log(this.lat);
+            console.log(this.lng);
+            this.map.setView([this.lat, this.lng], 20);
 
             // TODO :: GANTI DENGAN LOKASI BRANCH USER
-            this.setCircle([this.lat, this.lng], this.milesToMeters(5));
-        };
-
-        Map.prototype.getCurrentLocation = function(success, error) {
-
-            var self = this;
-
-            var onSuccess = function(lat, lng) {
-                success(new L.LatLng(lat, lng));
-            };
-
-            // get location via geoplugin.net. 
-            // Typically faster than browser's geolocation, but less accurate.
-            // var geoplugin = function() {
-            //     $.ajax({
-            //         url: "http://www.geoplugin.net/json.gp",
-            //         success: function(result) {
-            //             let data = JSON.parse(result);
-            //             new L.LatLng(data.geoplugin_latitude, data.geoplugin_longitude);
-            //         }
-            //     });
-            // };
-
-            // get location via browser's geolocation. 
-            // Typically slower than geoplugin.net, but more accurate.
-            var navGeoLoc = function() {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    success(new L.LatLng(position.coords.latitude, position.coords.longitude));
-                }, function(positionError) {
-                    console.log(positionError);
-                    error('Untuk saat ini lokasi tidak dapat ditemukan');
-                });
-            };
-
-            navGeoLoc();
-        };
-
-        // Overlay message methods
-
-        Map.prototype.dismissMessage = function() {
-            this.$el.removeClass('show-message');
-            this.$overlay.html('');
-        };
-
-        Map.prototype.showMessage = function(html) {
-            this.$overlay.html('<div class="center"><div>' + html + '</div></div>');
-            this.$el.addClass('show-message');
+            this.setCircle(['-6.2601199', '106.7178253'], this.milesToMeters(4));
         };
 
         // Conversion Helpers
@@ -221,24 +175,15 @@
 
         jQuery(function($) {
 
-            var map = new Map('#map', 51.505, -0.09);
+            var map = new Map('#map', '<?= $this->session->userdata('lat') ?>', '<?= $this->session->userdata('long') ?>', 10);
 
-            map.showMessage('<h3><span>Mencari lokasi</span><br /><br />' +
-                '<span>Pastikan gps anda di aktifkan</span></h3>');
-
-            map.getCurrentLocation(function(latLng) {
-                $('.nav').show();
-                $('.lati').html(latLng.lat.toString().substring(0, 7));
-                $('.long').html(latLng.lng.toString().substring(0, 7));
-                map.centerOnLocation(latLng.lat, latLng.lng);
-                map.dismissMessage();
-                $('.latitude').val(latLng.lat);
-                $('.longitude').val(latLng.lng);
-                $('.absent').show();
-            }, function(errorMessage) {
-                map.showMessage('<p><span>Lokasi Error:</span><br /><br />' +
-                    '<span>' + errorMessage + '</span></p>');
-            });
+            $('.nav').show();
+            $('.lati').html('<?= $this->session->userdata('lat') ?>');
+            $('.long').html('<?= $this->session->userdata('long') ?>');
+            map.centerOnLocation('<?= $this->session->userdata('lat') ?>', '<?= $this->session->userdata('long') ?>');
+            $('.latitude').val('<?= $this->session->userdata('lat') ?>');
+            $('.longitude').val('<?= $this->session->userdata('long') ?>');
+            $('.absent').show();
 
         });
     </script>

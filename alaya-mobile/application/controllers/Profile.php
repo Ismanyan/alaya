@@ -26,13 +26,24 @@ class Profile extends CI_Controller {
             redirect(base_url());
             exit;
         } else {
-            $this->load->model('profile_model');
-            $response = $this->profile_model->getProfile($id);
-            $response = json_decode($response->body,true);
-            $data['user'] = $response;
+            // $this->load->model('profile_model');
+            // $response = $this->profile_model->getProfile($id);
+            // $response = json_decode($response->body,true);
+            // $data['user'] = $response;
             $this->load->view('layouts/header');
-            $this->load->view('home/profile',$data);
+            $this->load->view('home/profile');
             $this->load->view('layouts/footer');
         }
+    }
+
+    public function getProfile()
+    {
+        $id= $this->input->post('id',true);
+
+        $this->load->model('profile_model');
+        $response = $this->profile_model->getProfile($id);
+        $response = json_decode($response->body,true);
+        
+        echo json_encode($response,true);
     }
 }

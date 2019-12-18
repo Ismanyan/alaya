@@ -1,0 +1,29 @@
+runtime: php72
+
+env_variables:
+  ## Put production environment variables here.
+  VIEW_COMPILED_PATH: /tmp
+  SESSION_DRIVER: cookie
+
+  APP_NAME: Lumen
+  APP_ENV: local
+  APP_KEY: 803181e3e35281869b0d84f2e50cd27c
+  APP_DEBUG: true
+  APP_URL: http://localhost/website/alaya-rest-api/
+  APP_TIMEZONE: Asia/Jakarta
+
+  LOG_CHANNEL: stack
+
+  DB_CONNECTION: mysql
+  DB_HOST: 127.0.0.1
+  DB_PORT: 3306
+  DB_DATABASE: laravel
+  DB_USERNAME: ismanyan
+  DB_PASSWORD: ismanyan
+  DB_SOCKET: "/cloudsql/kubi-experiment:us-central1:kubi-experiment"
+
+  CACHE_DRIVER: file
+  QUEUE_CONNECTION: sync
+
+  JWT_SECRET: 095d622a1ddcf970b78588c2e0ae14a8
+  TOKEN: 9940e645edc672f7c0e83e0c8f8b7586
