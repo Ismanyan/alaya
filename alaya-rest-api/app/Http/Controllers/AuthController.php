@@ -39,7 +39,8 @@ class AuthController extends BaseController
         $payload = [
             'iss' => "lumen-jwt", // Issuer of the token
             'sub' => $user->id, // Subject of the token
-            'iat' => time() // Time when JWT was issued. 
+            'iat' => time(), // Time when JWT was issued.
+            'exp' => strtotime('tomorrow') - time() 
         ];
 
         // As you can see we are passing `JWT_SECRET` as the second parameter that will 

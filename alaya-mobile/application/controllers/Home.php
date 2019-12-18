@@ -19,8 +19,15 @@ class Home extends CI_Controller {
 			];
 
 			$this->session->set_userdata($location);
-
 			redirect(base_url('auth/login'));
+		} else {
+			if (isset($_GET['latitude'])) {
+				$location = [
+					'lat' => $_GET['latitude'],
+					'long' => $_GET['longitude']
+				];
+				$this->session->set_userdata($location);
+			}
 		}
 	}
 

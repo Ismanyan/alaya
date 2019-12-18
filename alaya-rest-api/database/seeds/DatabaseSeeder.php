@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('id_ID');
-        for ($i = 1; $i <= 1000; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             DB::table('users')->insert([
                 'name'     => $faker->name,
                 'username' => $faker->userName,
@@ -53,7 +53,9 @@ class DatabaseSeeder extends Seeder
                 'phone'   => $faker->randomNumber(),
                 'maps' => 'https://www.google.co.id/maps/place/Bali/@-8.4543385,114.5110401,9z/data=!3m1!4b1!4m5!3m4!1s0x2dd22f7520fca7d3:0x2872b62cc456cd84!8m2!3d-8.3405389!4d115.0919509',
                 'start' => $faker->time('H:i:s'),
-                'end' => $faker->time('H:i:s')
+                'end' => $faker->time('H:i:s'),
+                'lat' => '-6.1666012',
+                'long' => '106.6089758'
             ]);
             DB::table('history')->insert([
                 'users_id' => $i,

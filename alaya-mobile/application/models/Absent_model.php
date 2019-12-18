@@ -31,6 +31,7 @@ class Absent_model extends CI_Model {
     public function addAbsent(INT $id)
     {
         $url = getenv('REST_URL');
+        
         $data = array(
             'longitude' => $this->input->post('longitude'),
             'latitude' => $this->input->post('latitude'),
@@ -45,6 +46,10 @@ class Absent_model extends CI_Model {
     // Get branch
     public function getBranch()
     {
-        return $this->session->userdata('branch_id');
+        $url = getenv('REST_URL');
+        $token = $this->session->userdata('TOKEN');
+        $response = Requests::GET($url . 'branch/detail/' .$this->session->userdata('branch_id'). '?token=' . $token);
+
+        return json_decode($response->body,true);
     }
 }

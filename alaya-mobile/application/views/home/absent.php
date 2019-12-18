@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="<?= asset_url() . 'css/home/absent.css' ?>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
 </head>
 
 <body>
@@ -17,47 +20,35 @@
         </li>
     </ul>
 
-    <div id="map">
-        <div class="map-overlay"></div>
-        <div class="map-container"></div>
+    <div class="loader container">
+        <div class="d-flex align-items-center mb-3" style="color:#ff6fa4 !important;">
+            <h5 class="spinner-text" style="color:black !important">Loading...</h5>
+            <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+        </div>
     </div>
 
-    <form action="<?= base_url('absent/check/') . $this->session->userdata('user_id') ?>" method="post">
-        <input type="hidden" name="latitude" class="latitude">
-        <input type="hidden" name="longitude" class="longitude">
-        <input type="hidden" name="location" value="<?= $geo['city'] . ',' . $geo['regionName'] . ',' . $geo['country'] ?>">
-        <button type="submit" class="btn btn-primary absent py-3 animated fadeInUp slow">Cek Absen</button>
-        <button type="button" class="btn btn-primary area py-3 animated fadeInUp slow">Cek Absen</button>
-    </form>
+    <div class="data">
+        <div id="map">
+            <div class="map-overlay"></div>
+            <div class="map-container"></div>
+        </div>
+
+        <form>
+            <input type="hidden" name="latitude" class="latitude">
+            <input type="hidden" name="longitude" class="longitude">
+
+            <input type="hidden" name="location" value="<?= $geo['city'] . ',' . $geo['regionName'] . ',' . $geo['country'] ?>">
+            <button type="button" class="btn btn-primary absent py-3 animated fadeInUp slow">Cek Absen</button>
+            <button type="button" class="btn btn-primary area py-3 animated fadeInUp slow">Cek Absen</button>
+        </form>
+    </div>
+
+    <input type="hidden" class="base_url" value="<?= getenv('BASE_URL') . 'absent/check/' . $this->session->userdata('user_id') ?>">
+    <input type="hidden" class="back" value="<?= getenv('BASE_URL') . '/statistic/absent/' . $this->session->userdata('user_id'); ?>">
+    <script src="<?= asset_url() . 'js/absent/time.js' ?>"></script>
 
     <script>
-        (function() {
-            function checkTime(i) {
-                return (i < 10) ? "0" + i : i;
-            }
-
-            function startTime() {
-                var today = new Date(),
-                    h = checkTime(today.getHours()),
-                    m = checkTime(today.getMinutes()),
-                    s = checkTime(today.getSeconds());
-                document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-
-                var time = h + m;
-                if (time >= '0800' && time <= '0900') {
-                    // console.log('oke');
-                    console.log(time);
-                } else {
-                    $('.absent').html('Absent Telah Ditutup').attr("disabled", true);
-                }
-
-                t = setTimeout(function() {
-                    startTime()
-                }, 500);
-            }
-            startTime();
-        })();
-
+        $('.loader').hide();
         $('.nav').hide();
         $('.absent').hide();
         $('.area').hide();
@@ -160,12 +151,10 @@
                     .addTo(this.map);
             }
 
-            console.log(this.lat);
-            console.log(this.lng);
             this.map.setView([this.lat, this.lng], 20);
 
             // TODO :: GANTI DENGAN LOKASI BRANCH USER
-            this.setCircle(['<?= $this->session->userdata('lat') ?>', '<?= $this->session->userdata('long') ?>'], this.milesToMeters(4));
+            this.setCircle([<?= $branch['lat']  ?>, <?= $branch['long']  ?>], this.milesToMeters(4));
         };
 
         // Conversion Helpers
@@ -176,7 +165,6 @@
         jQuery(function($) {
 
             var map = new Map('#map', '<?= $this->session->userdata('lat') ?>', '<?= $this->session->userdata('long') ?>', 10);
-
             $('.nav').show();
             $('.lati').html('<?= $this->session->userdata('lat') ?>');
             $('.long').html('<?= $this->session->userdata('long') ?>');
@@ -184,6 +172,7 @@
             $('.latitude').val('<?= $this->session->userdata('lat') ?>');
             $('.longitude').val('<?= $this->session->userdata('long') ?>');
             $('.absent').show();
-
         });
     </script>
+
+    <script src="<?= asset_url() . 'js/absent/absent_finish.js' ?>"></script>

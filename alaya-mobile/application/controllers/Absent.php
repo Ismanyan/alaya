@@ -32,13 +32,10 @@ class Absent extends CI_Controller
         } else {
             $response = Requests::GET('http://ip-api.com/json/');
             $response = json_decode($response->body, true);
- 
+            $data['branch'] = $this->absent_model->getBranch();
             if ($response['status'] == 'success') {
                 $data['geo'] = $response;
-                // ADD RANGE BRANCH 
-                $data['branch'] = $this->absent_model->getBranch();
-                // var_dump($data);
-                
+                // ADD RANGE BRANCH
                 $this->load->view('layouts/header');
                 $this->load->view('home/absent',$data);
                 $this->load->view('layouts/footer');
@@ -49,6 +46,7 @@ class Absent extends CI_Controller
         }
     }
 
+
     // Add Absent
     public function check (INT $id) {
         if ($id != $this->session->userdata('user_id')) {
@@ -58,9 +56,11 @@ class Absent extends CI_Controller
             $response = $this->absent_model->addAbsent($id);
             
             if ($response->status_code == 200) {
-                notif('success', 'Absent success', 'Thank you for being absent today');
+                // notif('success', 'Absent success', 'Thank you for being absent today');
+                echo json_encode(1);
             } else {
-                notif('warning', 'Absent Denied', 'Absent today already done');
+                // notif('warning', 'Absent Denied', 'Absent today already done');
+                echo json_encode(2);
             }
         }
     }

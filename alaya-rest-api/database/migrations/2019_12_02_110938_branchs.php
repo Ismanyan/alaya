@@ -21,6 +21,8 @@ class Branchs extends Migration
             $table->string('maps');
             $table->string('start');
             $table->string('end');
+            $table->string('lat');
+            $table->string('long');
             $table->timestamps();
         });
     }

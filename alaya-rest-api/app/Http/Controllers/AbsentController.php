@@ -88,6 +88,7 @@ class AbsentController extends Controller
         $check_absent = Absent::where('users_id', $id)->where('date', date('d/m/Y'))->first();
         
         if (!$check_absent) {
+            date_default_timezone_set("Asia/Jakarta");
             $absent = Absent::create([
                 'id'         => null,
                 'users_id'    => $id,

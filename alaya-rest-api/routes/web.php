@@ -50,6 +50,7 @@ $router->group(
         
         // Branch
         $router->get('branch', 'BranchController@all');
+        $router->get('branch/detail/{id}', 'BranchController@detail');
         $router->post('branch/create', 'BranchController@create');
         $router->put('branch/edit/{id}', 'BranchController@edit');
         $router->put('branch/delete/{id}', 'BranchController@delete');
