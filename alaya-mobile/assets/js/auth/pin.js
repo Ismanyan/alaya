@@ -1,4 +1,3 @@
-
 var rest_url = $('.rest_url').val();
 var base_url = $('.base_url').val();
 function addNumber(id) {
@@ -34,9 +33,11 @@ $(document).ready(function () {
 			},
 			success: function (response) {
 				let x = JSON.parse(response);
-
 				if (x == false) {
+					$('.splashscreen').hide();
 					$('.alert-danger').show();
+					$('.pin-container').show();
+					$('body').css('background-color', '#fff');
 				} else {
 					document.location.href = base_url;
 				}

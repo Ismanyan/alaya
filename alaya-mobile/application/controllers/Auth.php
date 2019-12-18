@@ -96,7 +96,7 @@ class Auth extends CI_Controller
 
         $token = $this->session->userdata('TOKEN');
         $response = Requests::GET($this->API . 'users/' . $id . '?token=' . $token);
-
+     
         if ($response->status_code === 200) {
             $result = json_decode($response->body, true);
             if (password_verify($pin , $result['pin'])) {
