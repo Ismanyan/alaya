@@ -94,11 +94,10 @@
                     beforeSend: function() {
                         $('.loader').show();
                         $('.data').hide();
+                        $('.modal-footer').hide();
                     },
                     success: function(response) {
-                        $('.loader').hide();
-                        $('.data').show();
-
+                        $('.modal').hide();
 
                         Swal.fire({
                             title: "Treatment Berhasil",
@@ -106,7 +105,7 @@
                             text: "",
                             timer: 2000,
                             onClose: () => {
-                                window.location.replace(base_url +"statistic/treatment/" + '<?= $this->session->userdata('user_id') ?>');
+                                window.location.replace(base_url + "statistic/treatment/" + '<?= $this->session->userdata('user_id') ?>');
                             }
                         });
                     }

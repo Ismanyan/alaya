@@ -165,7 +165,7 @@
             this.map.setView([this.lat, this.lng], 20);
 
             // TODO :: GANTI DENGAN LOKASI BRANCH USER
-            this.setCircle(['-6.2601199', '106.7178253'], this.milesToMeters(4));
+            this.setCircle(['<?= $this->session->userdata('lat') ?>', '<?= $this->session->userdata('long') ?>'], this.milesToMeters(4));
         };
 
         // Conversion Helpers

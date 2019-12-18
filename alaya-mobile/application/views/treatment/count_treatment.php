@@ -4,7 +4,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a href="<?= base_url('treatment') ?>">
+        <a href="<?= redirect($_SERVER['HTTP_REFERER']); ?>">
             <img src="<?= asset_url() . 'img/profile/btnback.png' ?>" alt="back" width="12">
         </a>
         <a class="navbar-brand mx-auto" href="#" disabled>Treatment Detail</a>
