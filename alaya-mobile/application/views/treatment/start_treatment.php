@@ -71,7 +71,10 @@
 
     <script src="<?= asset_url() . 'js/treatment/stopwatch.js' ?>"></script>
     <input class="base" type="hidden" value="<?= base_url('treatment/finish/') . $this->session->userdata('user_id') . "/" . $id  ?>">
+
+    <input type="hidden" class="base_url" value="<?= getenv('BASE_URL') ?>">
     <script>
+        var base_url = $('.base_url').val();
         $('.finish').click(function() {
             $('.loader').hide();
             var time = $('#time').val();
@@ -103,7 +106,7 @@
                             text: "",
                             timer: 2000,
                             onClose: () => {
-                                window.location.replace("http://localhost/GITHUB_/alaya/alaya-mobile/statistic/treatment/" + '<?= $this->session->userdata('user_id') ?>');
+                                window.location.replace(base_url +"statistic/treatment/" + '<?= $this->session->userdata('user_id') ?>');
                             }
                         });
                     }

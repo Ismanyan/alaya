@@ -33,7 +33,6 @@
             type: 'get',
             success: function(response) {
                 var x = JSON.parse(response);
-                console.log(x);
                 // $('.img-fluid').attr('src', x.photo);
                 // $('.title-detail').text(x.name);
                 // $('.desc').text(x.desc);

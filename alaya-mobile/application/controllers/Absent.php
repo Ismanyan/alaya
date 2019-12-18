@@ -24,7 +24,7 @@ class Absent extends CI_Controller
 
 
     // Absent
-    public function index(INT $id)
+    public function index(INT $id = null)
     {
         if ($id != $this->session->userdata('user_id')) {
             redirect(base_url());

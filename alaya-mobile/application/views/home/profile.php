@@ -93,20 +93,21 @@
 
 
     <input type="hidden" class="rest_url" value="<?= getenv('REST_URL') ?>">
-    
+
+    <input type="hidden" class="base_url" value="<?= getenv('BASE_URL') ?>">
     <script>
         $('.loader').show();
         $('.data').hide();
+        var base_url = $('.base_url').val();
         let id = '<?= $this->session->userdata('user_id') ?>';
         $.ajax({
-            url: "http://localhost/GITHUB_/alaya/alaya-mobile/profile/getProfile",
+            url: base_url +"profile/getProfile",
             type: 'post',
             data: {
                 id: id
             },
             success: function(response) {
                 let x = JSON.parse(response);
-                console.log(x);
                 $(".profile").attr("src", x.photo);
                 $('.id').append(x.username);
                 $('.email').append(x.email);
