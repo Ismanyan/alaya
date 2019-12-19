@@ -37,6 +37,10 @@ $(document).ready(function () {
 				let x = JSON.parse(response);
 
 				if (x == false) {
+					$('body').css('background-color', '#fff');
+					$('#splashscreen').hide();
+					$('.check').hide();
+					$('.login').show();
 					$('.alert-danger').show();
 				} else {
 					document.location.href = base_url+"auth/pin/" + response;
