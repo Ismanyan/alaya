@@ -149,17 +149,24 @@ class Treatment extends CI_Controller
             redirect(base_url());
             exit;
         } else {
-            $response = Requests::GET($this->API . 'treatment/get/history/' . $user_id ."/" . $id . '?token=' . $this->session->userdata('TOKEN'));
             
-            if ($response->status_code === 200) {
-                $data['treatment'] = json_decode($response->body, true);
-
+            // if ($response->status_code === 200) {
+                // $data['treatment'] = json_decode($response->body, true);
+                $data['id'] = $id;
                 $this->load->view('layouts/header');
-                $this->load->view('statistic/statistic_detail_treatment', $data);
+                $this->load->view('statistic/statistic_detail_treatment',$data);
                 $this->load->view('layouts/footer');
-            } else {
-                notif('error', 'Treatment Invalid', 'Please contact your admin');
-            }
+            // } else {
+            //     notif('error', 'Treatment Invalid', 'Please contact your admin');
+            // }
         }
+    }
+
+    public function getHistory($id)
+    {
+        $user_id = $this->session->userdata('user_id');
+        $response = Requests::GET($this->API . 'treatment/get/history/' . $user_id ."/" . $id . '?token=' . $this->session->userdata('TOKEN'));
+        $data = json_decode($response->body, true);
+        echo json_encode($data);
     }
 }

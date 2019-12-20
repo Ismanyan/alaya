@@ -12,7 +12,7 @@
 
         var time = h;
         console.log(time);
-        if (time >= '08' && time == '09') {
+        if (time >= '16' && time <= '17') {
             // console.log('oke');
         } else {
             $('.absent').html('Absent Telah Ditutup').attr("disabled", true);

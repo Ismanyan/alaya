@@ -37,7 +37,7 @@
             <input type="hidden" name="latitude" class="latitude">
             <input type="hidden" name="longitude" class="longitude">
 
-            <input type="hidden" name="location" value="<?= $geo['city'] . ',' . $geo['regionName'] . ',' . $geo['country'] ?>">
+            <input type="hidden" class="location" name="location" value="<?= $geo['city'] . ',' . $geo['regionName'] . ',' . $geo['country'] ?>">
             <button type="button" class="btn btn-primary absent py-3 animated fadeInUp slow">Cek Absen</button>
             <button type="button" class="btn btn-primary area py-3 animated fadeInUp slow">Cek Absen</button>
         </form>
